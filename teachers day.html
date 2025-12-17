@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher's Day Card</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+    }
+
+    .card-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow: auto;
+    }
+
+    .card-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      aspect-ratio: 3/2;
+      perspective: 1500px;
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .card-front {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .card-back {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      transform: rotateY(180deg);
+    }
+
+    .apple-icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 24px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .card-title {
+      font-size: 48px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 16px;
+      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .teacher-name {
+      font-size: 32px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .card-subtitle {
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.9);
+      text-align: center;
+      font-style: italic;
+    }
+
+    .card-message {
+      font-size: 22px;
+      color: #ffffff;
+      text-align: center;
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 90%;
+    }
+
+    .signature {
+      font-size: 24px;
+      font-weight: 600;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .flip-hint {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.8);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    .decorative-elements {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: 24px;
+    }
+
+    .star {
+      position: absolute;
+      font-size: 24px;
+      animation: twinkle 2s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .star:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+    .star:nth-child(2) { top: 15%; right: 15%; animation-delay: 0.5s; }
+    .star:nth-child(3) { bottom: 15%; left: 15%; animation-delay: 1s; }
+    .star:nth-child(4) { bottom: 10%; right: 10%; animation-delay: 1.5s; }
+
+    @media (max-width: 600px) {
+      .card-title { font-size: 32px; }
+      .teacher-name { font-size: 24px; }
+      .card-subtitle { font-size: 16px; }
+      .card-message { font-size: 18px; }
+      .signature { font-size: 20px; }
+      .apple-icon { width: 60px; height: 60px; }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="card-wrapper">
+   <div class="card-container">
+    <div class="card" id="teacherCard">
+     <div class="card-face card-front">
+      <div class="decorative-elements">
+       <div class="star">
+        ✨
+       </div>
+       <div class="star">
+        ⭐
+       </div>
+       <div class="star">
+        ✨
+       </div>
+       <div class="star">
+        ⭐
+       </div>
+      </div>
+      <svg class="apple-icon" viewbox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C30 10, 20 25, 20 40 C20 65, 35 85, 50 90 C65 85, 80 65, 80 40 C80 25, 70 10, 50 10Z" fill="#FF6B6B" /> <path d="M50 10 L45 5 C45 5, 48 0, 52 2 C56 4, 55 8, 50 10Z" fill="#51CF66" /> <ellipse cx="35" cy="35" rx="8" ry="10" fill="#FFA07A" opacity="0.6" />
+      </svg>
+      <h1 class="card-title" id="mainGreeting">Happy Teacher's Day!</h1>
+      <p class="card-subtitle">Click to open your card</p>
+      <div class="flip-hint">
+       👆 Tap to flip
+      </div>
+     </div>
+     <div class="card-face card-back">
+      <div class="decorative-elements">
+       <div class="star">
+        📚
+       </div>
+       <div class="star">
+        ✏️
+       </div>
+       <div class="star">
+        🎓
+       </div>
+       <div class="star">
+        💫
+       </div>
+      </div>
+      <h2 class="teacher-name" id="teacherName">Dear Sir Randy</h2>
+      <p class="card-message" id="messageText">Thank you for inspiring us every day with your wisdom, patience, and dedication. You make learning a joy!</p>
+      <p class="signature" id="fromName">With gratitude, Your Students</p>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      main_greeting: "Happy Teacher's Day!",
+      teacher_name: "Dear Ms. Johnson",
+      message_text: "Thank you for inspiring us every day with your wisdom, patience, and dedication. You make learning a joy!",
+      from_name: "With gratitude, Your Students",
+      primary_color: "#667eea",
+      secondary_color: "#f093fb",
+      text_color: "#ffffff",
+      font_family: "Arial",
+      font_size: 16
+    };
+
+    const card = document.getElementById('teacherCard');
+    
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+    });
+
+    async function onConfigChange(config) {
+      const baseSize = config.font_size || defaultConfig.font_size;
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseFontStack = 'system-ui, -apple-system, sans-serif';
+      const fontFamily = `${customFont}, ${baseFontStack}`;
+      
+      const mainGreeting = document.getElementById('mainGreeting');
+      const teacherName = document.getElementById('teacherName');
+      const messageText = document.getElementById('messageText');
+      const fromName = document.getElementById('fromName');
+      const cardSubtitle = document.querySelector('.card-subtitle');
+      
+      mainGreeting.textContent = config.main_greeting || defaultConfig.main_greeting;
+      mainGreeting.style.fontSize = `${baseSize * 3}px`;
+      mainGreeting.style.fontFamily = fontFamily;
+      mainGreeting.style.color = config.text_color || defaultConfig.text_color;
+      
+      teacherName.textContent = config.teacher_name || defaultConfig.teacher_name;
+      teacherName.style.fontSize = `${baseSize * 2}px`;
+      teacherName.style.fontFamily = fontFamily;
+      teacherName.style.color = config.text_color || defaultConfig.text_color;
+      
+      messageText.textContent = config.message_text || defaultConfig.message_text;
+      messageText.style.fontSize = `${baseSize * 1.375}px`;
+      messageText.style.fontFamily = fontFamily;
+      messageText.style.color = config.text_color || defaultConfig.text_color;
+      
+      fromName.textContent = config.from_name || defaultConfig.from_name;
+      fromName.style.fontSize = `${baseSize * 1.5}px`;
+      fromName.style.fontFamily = fontFamily;
+      fromName.style.color = config.text_color || defaultConfig.text_color;
+      
+      cardSubtitle.style.fontSize = `${baseSize * 1.25}px`;
+      cardSubtitle.style.fontFamily = fontFamily;
+      cardSubtitle.style.color = config.text_color || defaultConfig.text_color;
+      
+      const cardFront = document.querySelector('.card-front');
+      const cardBack = document.querySelector('.card-back');
+      const primaryColor = config.primary_color || defaultConfig.primary_color;
+      const secondaryColor = config.secondary_color || defaultConfig.secondary_color;
+      
+      cardFront.style.background = `linear-gradient(135deg, ${primaryColor} 0%, #764ba2 100%)`;
+      cardBack.style.background = `linear-gradient(135deg, ${secondaryColor} 0%, #f5576c 100%)`;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.primary_color || defaultConfig.primary_color,
+            set: (value) => {
+              config.primary_color = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ primary_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.secondary_color || defaultConfig.secondary_color,
+            set: (value) => {
+              config.secondary_color = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ secondary_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            if (window.elementSdk) {
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            if (window.elementSdk) {
+              window.elementSdk.setConfig({ font_size: value });
+            }
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["main_greeting", config.main_greeting || defaultConfig.main_greeting],
+        ["teacher_name", config.teacher_name || defaultConfig.teacher_name],
+        ["message_text", config.message_text || defaultConfig.message_text],
+        ["from_name", config.from_name || defaultConfig.from_name]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9af332053471bc43',t:'MTc2NTk0MDY5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
